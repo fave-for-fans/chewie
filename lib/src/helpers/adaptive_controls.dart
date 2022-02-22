@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 class AdaptiveControls extends StatelessWidget {
   const AdaptiveControls({
     Key? key,
+    this.playButtonIcon,
+    this.pauseButtonIcon,
   }) : super(key: key);
+
+  final Icon? playButtonIcon;
+  final Icon? pauseButtonIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +25,15 @@ class AdaptiveControls extends StatelessWidget {
         return const MaterialDesktopControls();
 
       case TargetPlatform.iOS:
-        return const CupertinoControls(
-          backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
-          iconColor: Color.fromARGB(255, 200, 200, 200),
+        return CupertinoControls(
+          playButtonIcon: playButtonIcon,
+          pauseButtonIcon: pauseButtonIcon,
         );
       default:
-        return const MaterialControls();
+        return MaterialControls(
+          playButtonIcon: playButtonIcon,
+          pauseButtonIcon: pauseButtonIcon,
+        );
     }
   }
 }

@@ -19,14 +19,18 @@ import 'package:video_player/video_player.dart';
 
 class CupertinoControls extends StatefulWidget {
   const CupertinoControls({
-    required this.backgroundColor,
-    required this.iconColor,
+    this.backgroundColor = const Color.fromRGBO(41, 41, 41, 0.7),
+    this.iconColor = const Color.fromARGB(255, 200, 200, 200),
+    this.playButtonIcon,
+    this.pauseButtonIcon,
     this.showPlayButton = true,
     Key? key,
   }) : super(key: key);
 
   final Color backgroundColor;
   final Color iconColor;
+  final Icon? playButtonIcon;
+  final Icon? pauseButtonIcon;
   final bool showPlayButton;
 
   @override
@@ -354,7 +358,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
               _hideTimer?.cancel();
 
               setState(() {
-                notifier.hideStuff = false;
+                notifier.hideStuff = true;
               });
             },
       child: CenterPlayButton(
@@ -362,8 +366,11 @@ class _CupertinoControlsState extends State<CupertinoControls>
         iconColor: widget.iconColor,
         isFinished: isFinished,
         isPlaying: controller.value.isPlaying,
-        show: showPlayButton,
+        show: !notifier.hideStuff,
         onPressed: _playPause,
+        playIcon: widget.playButtonIcon,
+        pauseIcon: widget.pauseButtonIcon,
+        controller: chewieController,
       ),
     );
   }
@@ -431,6 +438,8 @@ class _CupertinoControlsState extends State<CupertinoControls>
         child: AnimatedPlayPause(
           color: widget.iconColor,
           playing: controller.value.isPlaying,
+          playIcon: widget.playButtonIcon,
+          pauseIcon: widget.pauseButtonIcon,
         ),
       ),
     );

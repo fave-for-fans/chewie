@@ -17,10 +17,14 @@ import 'package:video_player/video_player.dart';
 class MaterialControls extends StatefulWidget {
   const MaterialControls({
     this.showPlayButton = true,
+    this.playButtonIcon,
+    this.pauseButtonIcon,
     Key? key,
   }) : super(key: key);
 
   final bool showPlayButton;
+  final Icon? playButtonIcon;
+  final Icon? pauseButtonIcon;
 
   @override
   State<StatefulWidget> createState() {
@@ -389,6 +393,9 @@ class _MaterialControlsState extends State<MaterialControls>
         isPlaying: controller.value.isPlaying,
         show: showPlayButton,
         onPressed: _playPause,
+        playIcon: widget.playButtonIcon,
+        pauseIcon: widget.pauseButtonIcon,
+        controller: chewieController,
       ),
     );
   }
