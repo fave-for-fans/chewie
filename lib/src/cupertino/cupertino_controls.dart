@@ -48,7 +48,6 @@ class _CupertinoControlsState extends State<CupertinoControls>
   final marginSize = 5.0;
   Timer? _expandCollapseTimer;
   Timer? _initTimer;
-  bool _dragging = false;
   Duration? _subtitlesPosition;
   bool _subtitleOn = false;
 
@@ -90,7 +89,10 @@ class _CupertinoControlsState extends State<CupertinoControls>
     return MouseRegion(
       onHover: (_) => _cancelAndRestartTimer(),
       child: GestureDetector(
-        onTap: () => _cancelAndRestartTimer(),
+        onTap: () {
+          _cancelAndRestartTimer();
+          if (!_latestValue.isPlaying) _playPause();
+        },
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
           child: Stack(
@@ -348,15 +350,18 @@ class _CupertinoControlsState extends State<CupertinoControls>
 
   Widget _buildHitArea() {
     final bool isFinished = _latestValue.position >= _latestValue.duration;
-    final bool showPlayButton =
-        widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
+    // final bool showPlayButton =
+    //     widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
 
     return GestureDetector(
       onTap: _latestValue.isPlaying
-          ? _cancelAndRestartTimer
+          ? () {
+              if (notifier.hideStuff) {
+                _playPause();
+              }
+              _cancelAndRestartTimer();
+            }
           : () {
-              _hideTimer?.cancel();
-
               setState(() {
                 notifier.hideStuff = true;
               });
@@ -366,7 +371,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
         iconColor: widget.iconColor,
         isFinished: isFinished,
         isPlaying: controller.value.isPlaying,
-        show: !notifier.hideStuff,
+        show: !notifier.hideStuff || !_latestValue.isPlaying,
         onPressed: _playPause,
         playIcon: widget.playButtonIcon,
         pauseIcon: widget.pauseButtonIcon,
@@ -681,17 +686,9 @@ class _CupertinoControlsState extends State<CupertinoControls>
         child: CupertinoVideoProgressBar(
           controller,
           onDragStart: () {
-            setState(() {
-              _dragging = true;
-            });
-
             _hideTimer?.cancel();
           },
           onDragEnd: () {
-            setState(() {
-              _dragging = false;
-            });
-
             _startHideTimer();
           },
           colors: chewieController.cupertinoProgressColors ??
@@ -728,7 +725,6 @@ class _CupertinoControlsState extends State<CupertinoControls>
 
   void _playPause() {
     final isFinished = _latestValue.position >= _latestValue.duration;
-
     setState(() {
       if (controller.value.isPlaying) {
         notifier.hideStuff = false;
