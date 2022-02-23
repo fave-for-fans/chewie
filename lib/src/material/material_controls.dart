@@ -17,10 +17,14 @@ import 'package:video_player/video_player.dart';
 class MaterialControls extends StatefulWidget {
   const MaterialControls({
     this.showPlayButton = true,
+    this.playButtonIcon,
+    this.pauseButtonIcon,
     Key? key,
   }) : super(key: key);
 
   final bool showPlayButton;
+  final Icon? playButtonIcon;
+  final Icon? pauseButtonIcon;
 
   @override
   State<StatefulWidget> createState() {
@@ -77,7 +81,10 @@ class _MaterialControlsState extends State<MaterialControls>
         _cancelAndRestartTimer();
       },
       child: GestureDetector(
-        onTap: () => _cancelAndRestartTimer(),
+        onTap: () {
+          _cancelAndRestartTimer();
+          if (!_latestValue.isPlaying) _playPause();
+        },
         child: AbsorbPointer(
           absorbing: notifier.hideStuff,
           child: Stack(
@@ -375,8 +382,6 @@ class _MaterialControlsState extends State<MaterialControls>
             _cancelAndRestartTimer();
           }
         } else {
-          _playPause();
-
           setState(() {
             notifier.hideStuff = true;
           });
@@ -387,8 +392,11 @@ class _MaterialControlsState extends State<MaterialControls>
         iconColor: Colors.white,
         isFinished: isFinished,
         isPlaying: controller.value.isPlaying,
-        show: showPlayButton,
+        show: !notifier.hideStuff || !_latestValue.isPlaying,
         onPressed: _playPause,
+        playIcon: widget.playButtonIcon,
+        pauseIcon: widget.pauseButtonIcon,
+        controller: chewieController,
       ),
     );
   }

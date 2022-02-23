@@ -354,6 +354,7 @@ class _MaterialDesktopControlsState extends State<MaterialDesktopControls>
         isPlaying: controller.value.isPlaying,
         show: showPlayButton,
         onPressed: _playPause,
+        controller: chewieController,
       ),
     );
   }

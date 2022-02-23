@@ -110,7 +110,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
       videoPlayerController: _videoPlayerController1,
       autoPlay: true,
       looping: true,
-
       additionalOptions: (context) {
         return <OptionItem>[
           OptionItem(
@@ -132,7 +131,14 @@ class _ChewieDemoState extends State<ChewieDemo> {
                 style: const TextStyle(color: Colors.black),
               ),
       ),
-
+      playButtonIcon: Icon(
+        Icons.ac_unit_outlined,
+        color: Colors.white,
+      ),
+      pauseButtonIcon: Icon(
+        Icons.health_and_safety_rounded,
+        color: Colors.white,
+      ),
       // Try playing around with some of these other options:
 
       // showControls: false,

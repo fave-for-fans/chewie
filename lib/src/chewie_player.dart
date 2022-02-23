@@ -262,6 +262,8 @@ class ChewieController extends ChangeNotifier {
     this.optionsBuilder,
     this.additionalOptions,
     this.showControls = true,
+    this.playButtonIcon,
+    this.pauseButtonIcon,
     this.subtitle,
     this.subtitleBuilder,
     this.customControls,
@@ -303,6 +305,8 @@ class ChewieController extends ChangeNotifier {
     Future<void> Function(BuildContext, List<OptionItem>)? optionsBuilder,
     List<OptionItem> Function(BuildContext)? additionalOptions,
     bool? showControls,
+    Icon? playButtonIcon,
+    Icon? pauseButtonIcon,
     Subtitles? subtitle,
     Widget Function(BuildContext, dynamic)? subtitleBuilder,
     Widget? customControls,
@@ -348,6 +352,8 @@ class ChewieController extends ChangeNotifier {
       optionsBuilder: optionsBuilder ?? this.optionsBuilder,
       additionalOptions: additionalOptions ?? this.additionalOptions,
       showControls: showControls ?? this.showControls,
+      playButtonIcon: playButtonIcon ?? this.playButtonIcon,
+      pauseButtonIcon: pauseButtonIcon ?? this.pauseButtonIcon,
       subtitle: subtitle ?? this.subtitle,
       subtitleBuilder: subtitleBuilder ?? this.subtitleBuilder,
       customControls: customControls ?? this.customControls,
@@ -424,7 +430,13 @@ class ChewieController extends ChangeNotifier {
   final bool showControlsOnInitialize;
 
   /// Whether or not to show the controls at all
-  final bool showControls;
+  bool showControls;
+
+  /// Custom play button icon to be displayed
+  final Icon? playButtonIcon;
+
+  /// Custom pause button to be displayed
+  final Icon? pauseButtonIcon;
 
   /// Defines customised controls. Check [MaterialControls] or
   /// [CupertinoControls] for reference.
@@ -557,6 +569,11 @@ class ChewieController extends ChangeNotifier {
 
   void togglePause() {
     isPlaying ? pause() : play();
+  }
+
+  void toggleShowControls() {
+    showControls = !showControls;
+    notifyListeners();
   }
 
   Future<void> play() async {
