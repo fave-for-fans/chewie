@@ -5,7 +5,7 @@ class AnimatedPlayPause extends StatefulWidget {
   const AnimatedPlayPause({
     Key? key,
     required this.playing,
-    this.size,
+    this.size = 25,
     this.color,
     this.playIcon,
     this.pauseIcon,
@@ -14,8 +14,8 @@ class AnimatedPlayPause extends StatefulWidget {
   final double? size;
   final bool playing;
   final Color? color;
-  final Icon? playIcon;
-  final Icon? pauseIcon;
+  final IconData? playIcon;
+  final IconData? pauseIcon;
 
   @override
   State<StatefulWidget> createState() => AnimatedPlayPauseState();
@@ -56,7 +56,7 @@ class AnimatedPlayPauseState extends State<AnimatedPlayPause>
 
   Widget _buildPlayPauseIcon() {
     if (widget.playIcon != null && widget.pauseIcon != null) {
-      return SizedBox(
+      return Center(
         child: AnimatedCrossFade(
           duration: const Duration(milliseconds: 500),
           crossFadeState: widget.playing
@@ -64,11 +64,19 @@ class AnimatedPlayPauseState extends State<AnimatedPlayPause>
               : CrossFadeState.showSecond,
           firstChild: Container(
             key: const Key('pause_icon'),
-            child: widget.pauseIcon,
+            child: Icon(
+              widget.pauseIcon,
+              size: widget.size,
+              color: widget.color,
+            ),
           ),
           secondChild: Container(
             key: const Key('play_icon'),
-            child: widget.playIcon,
+            child: Icon(
+              widget.playIcon,
+              size: widget.size,
+              color: widget.color,
+            ),
           ),
         ),
       );
