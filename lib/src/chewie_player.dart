@@ -305,8 +305,8 @@ class ChewieController extends ChangeNotifier {
     Future<void> Function(BuildContext, List<OptionItem>)? optionsBuilder,
     List<OptionItem> Function(BuildContext)? additionalOptions,
     bool? showControls,
-    Icon? playButtonIcon,
-    Icon? pauseButtonIcon,
+    IconData? playButtonIcon,
+    IconData? pauseButtonIcon,
     Subtitles? subtitle,
     Widget Function(BuildContext, dynamic)? subtitleBuilder,
     Widget? customControls,
@@ -433,10 +433,10 @@ class ChewieController extends ChangeNotifier {
   bool showControls;
 
   /// Custom play button icon to be displayed
-  final Icon? playButtonIcon;
+  final IconData? playButtonIcon;
 
   /// Custom pause button to be displayed
-  final Icon? pauseButtonIcon;
+  final IconData? pauseButtonIcon;
 
   /// Defines customised controls. Check [MaterialControls] or
   /// [CupertinoControls] for reference.

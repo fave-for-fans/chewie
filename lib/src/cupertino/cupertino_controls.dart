@@ -29,8 +29,8 @@ class CupertinoControls extends StatefulWidget {
 
   final Color backgroundColor;
   final Color iconColor;
-  final Icon? playButtonIcon;
-  final Icon? pauseButtonIcon;
+  final IconData? playButtonIcon;
+  final IconData? pauseButtonIcon;
   final bool showPlayButton;
 
   @override
@@ -443,6 +443,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
           playing: controller.value.isPlaying,
           playIcon: widget.playButtonIcon,
           pauseIcon: widget.pauseButtonIcon,
+          size: 14,
         ),
       ),
     );
@@ -762,7 +763,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
   }
 
   void _startHideTimer() {
-    _hideTimer = Timer(const Duration(seconds: 3), () {
+    _hideTimer = Timer(const Duration(seconds: 2), () {
       setState(() {
         notifier.hideStuff = true;
       });

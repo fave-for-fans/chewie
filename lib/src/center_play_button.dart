@@ -22,8 +22,8 @@ class CenterPlayButton extends StatelessWidget {
   final bool isPlaying;
   final bool isFinished;
   final VoidCallback? onPressed;
-  final Icon? playIcon;
-  final Icon? pauseIcon;
+  final IconData? playIcon;
+  final IconData? pauseIcon;
   final ChewieController controller;
 
   @override

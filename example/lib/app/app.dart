@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:chewie_example/app/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:video_player/video_player.dart';
 
@@ -108,8 +109,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
-      autoPlay: true,
-      looping: true,
       additionalOptions: (context) {
         return <OptionItem>[
           OptionItem(
@@ -119,26 +118,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
           ),
         ];
       },
-      subtitle: Subtitles(subtitles),
-      subtitleBuilder: (context, dynamic subtitle) => Container(
-        padding: const EdgeInsets.all(10.0),
-        child: subtitle is InlineSpan
-            ? RichText(
-                text: subtitle,
-              )
-            : Text(
-                subtitle.toString(),
-                style: const TextStyle(color: Colors.black),
-              ),
-      ),
-      playButtonIcon: Icon(
-        Icons.ac_unit_outlined,
-        color: Colors.white,
-      ),
-      pauseButtonIcon: Icon(
-        Icons.health_and_safety_rounded,
-        color: Colors.white,
-      ),
+      playButtonIcon: FontAwesomeIcons.play,
+      pauseButtonIcon: FontAwesomeIcons.pause,
+      showControlsOnInitialize: false,
       // Try playing around with some of these other options:
 
       // showControls: false,

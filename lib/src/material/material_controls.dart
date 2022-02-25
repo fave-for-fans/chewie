@@ -23,8 +23,8 @@ class MaterialControls extends StatefulWidget {
   }) : super(key: key);
 
   final bool showPlayButton;
-  final Icon? playButtonIcon;
-  final Icon? pauseButtonIcon;
+  final IconData? playButtonIcon;
+  final IconData? pauseButtonIcon;
 
   @override
   State<StatefulWidget> createState() {
@@ -42,7 +42,6 @@ class _MaterialControlsState extends State<MaterialControls>
   late var _subtitlesPosition = Duration.zero;
   bool _subtitleOn = false;
   Timer? _showAfterExpandCollapseTimer;
-  bool _dragging = false;
   bool _displayTapped = false;
 
   final barHeight = 48.0 * 1.5;
@@ -368,8 +367,6 @@ class _MaterialControlsState extends State<MaterialControls>
 
   Widget _buildHitArea() {
     final bool isFinished = _latestValue.position >= _latestValue.duration;
-    final bool showPlayButton =
-        widget.showPlayButton && !_dragging && !notifier.hideStuff;
 
     return GestureDetector(
       onTap: () {
@@ -548,7 +545,7 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   void _startHideTimer() {
-    _hideTimer = Timer(const Duration(seconds: 3), () {
+    _hideTimer = Timer(const Duration(seconds: 2), () {
       setState(() {
         notifier.hideStuff = true;
       });
@@ -568,17 +565,9 @@ class _MaterialControlsState extends State<MaterialControls>
       child: MaterialVideoProgressBar(
         controller,
         onDragStart: () {
-          setState(() {
-            _dragging = true;
-          });
-
           _hideTimer?.cancel();
         },
         onDragEnd: () {
-          setState(() {
-            _dragging = false;
-          });
-
           _startHideTimer();
         },
         colors: chewieController.materialProgressColors ??
@@ -586,7 +575,7 @@ class _MaterialControlsState extends State<MaterialControls>
               playedColor: Theme.of(context).colorScheme.secondary,
               handleColor: Theme.of(context).colorScheme.secondary,
               bufferedColor: Theme.of(context).backgroundColor.withOpacity(0.5),
-              backgroundColor: Theme.of(context).disabledColor.withOpacity(.5),
+              backgroundColor: Theme.of(context).disabledColor.withOpacity(0.5),
             ),
       ),
     );

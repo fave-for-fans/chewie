@@ -9,8 +9,8 @@ class AdaptiveControls extends StatelessWidget {
     this.pauseButtonIcon,
   }) : super(key: key);
 
-  final Icon? playButtonIcon;
-  final Icon? pauseButtonIcon;
+  final IconData? playButtonIcon;
+  final IconData? pauseButtonIcon;
 
   @override
   Widget build(BuildContext context) {
