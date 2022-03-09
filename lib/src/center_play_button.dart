@@ -46,8 +46,8 @@ class CenterPlayButton extends StatelessWidget {
                 // Always set the iconSize on the IconButton, not on the Icon itself:
                 // https://github.com/flutter/flutter/issues/52980
                 child: SizedBox(
-                  width: 68,
-                  height: 68,
+                  width: 40,
+                  height: 40,
                   child: isFinished
                       ? Icon(
                           Icons.replay,

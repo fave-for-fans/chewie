@@ -5,7 +5,7 @@ class AnimatedPlayPause extends StatefulWidget {
   const AnimatedPlayPause({
     Key? key,
     required this.playing,
-    this.size = 25,
+    this.size = 18,
     this.color,
     this.playIcon,
     this.pauseIcon,
