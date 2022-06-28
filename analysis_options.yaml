@@ -1,4 +1,4 @@
-include: package:lint/analysis_options_package.yaml
+include: package:very_good_analysis/analysis_options.3.0.1.yaml
 
 analyzer:
   strong-mode:
@@ -8,6 +8,8 @@ analyzer:
 
 linter:
   rules:
-    close_sinks: true
-    sort_constructors_first: true
-    sort_pub_dependencies: false
+    public_member_api_docs: false
+    sort_constructors_first: false
+    require_trailing_commas: true
+    constant_identifier_names: false
+    use_super_parameters: true
