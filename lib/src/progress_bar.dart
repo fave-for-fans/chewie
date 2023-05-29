@@ -9,12 +9,11 @@ class VideoProgressBar extends StatefulWidget {
     this.onDragEnd,
     this.onDragStart,
     this.onDragUpdate,
-    Key? key,
+    super.key,
     required this.barHeight,
     required this.handleHeight,
     required this.drawShadow,
-  })  : colors = colors ?? ChewieProgressColors(),
-        super(key: key);
+  })  : colors = colors ?? ChewieProgressColors();
 
   final VideoPlayerController controller;
   final ChewieProgressColors colors;
@@ -57,9 +56,9 @@ class _VideoProgressBarState extends State<VideoProgressBar> {
 
   void _seekToRelativePosition(Offset globalPosition) {
     final box = context.findRenderObject()! as RenderBox;
-    final Offset tapPos = box.globalToLocal(globalPosition);
-    final double relative = tapPos.dx / box.size.width;
-    final Duration position = controller.value.duration * relative;
+    final tapPos = box.globalToLocal(globalPosition);
+    final relative = tapPos.dx / box.size.width;
+    final position = controller.value.duration * relative;
     controller.seekTo(position);
   }
 
@@ -146,30 +145,30 @@ class _ProgressBarPainter extends CustomPainter {
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromPoints(
-          Offset(0.0, baseOffset),
+          Offset(0, baseOffset),
           Offset(size.width, baseOffset + barHeight),
         ),
-        const Radius.circular(4.0),
+        const Radius.circular(4),
       ),
       colors.backgroundPaint,
     );
     if (!value.isInitialized) {
       return;
     }
-    final double playedPartPercent =
+    final playedPartPercent =
         value.position.inMilliseconds / value.duration.inMilliseconds;
-    final double playedPart =
+    final playedPart =
         playedPartPercent > 1 ? size.width : playedPartPercent * size.width;
-    for (final DurationRange range in value.buffered) {
-      final double start = range.startFraction(value.duration) * size.width;
-      final double end = range.endFraction(value.duration) * size.width;
+    for (final range in value.buffered) {
+      final start = range.startFraction(value.duration) * size.width;
+      final end = range.endFraction(value.duration) * size.width;
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromPoints(
             Offset(start, baseOffset),
             Offset(end, baseOffset + barHeight),
           ),
-          const Radius.circular(4.0),
+          const Radius.circular(4),
         ),
         colors.bufferedPaint,
       );
@@ -177,16 +176,16 @@ class _ProgressBarPainter extends CustomPainter {
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromPoints(
-          Offset(0.0, baseOffset),
+          Offset(0, baseOffset),
           Offset(playedPart, baseOffset + barHeight),
         ),
-        const Radius.circular(4.0),
+        const Radius.circular(4),
       ),
       colors.playedPaint,
     );
 
     if (drawShadow) {
-      final Path shadowPath = Path()
+      final shadowPath = Path()
         ..addOval(
           Rect.fromCircle(
             center: Offset(playedPart, baseOffset + barHeight / 2),

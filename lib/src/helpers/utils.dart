@@ -1,8 +1,8 @@
 String formatDuration(Duration position) {
   final ms = position.inMilliseconds;
 
-  int seconds = ms ~/ 1000;
-  final int hours = seconds ~/ 3600;
+  var seconds = ms ~/ 1000;
+  final hours = seconds ~/ 3600;
   seconds = seconds % 3600;
   final minutes = seconds ~/ 60;
   seconds = seconds % 60;

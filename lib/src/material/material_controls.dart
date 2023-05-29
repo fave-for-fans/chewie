@@ -19,8 +19,8 @@ class MaterialControls extends StatefulWidget {
     this.showPlayButton = true,
     this.playButtonIcon,
     this.pauseButtonIcon,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final bool showPlayButton;
   final IconData? playButtonIcon;
@@ -101,7 +101,7 @@ class _MaterialControlsState extends State<MaterialControls>
                   if (_subtitleOn)
                     Transform.translate(
                       offset: Offset(
-                        0.0,
+                        0,
                         notifier.hideStuff ? barHeight * 0.8 : 0.0,
                       ),
                       child:
@@ -168,7 +168,7 @@ class _MaterialControlsState extends State<MaterialControls>
       OptionItem(
         onTap: () async {
           Navigator.pop(context);
-          _onSpeedButtonTap();
+          await _onSpeedButtonTap();
         },
         iconData: Icons.speed,
         title: chewieController.optionsTranslation?.playbackSpeedButtonText ??
@@ -237,7 +237,7 @@ class _MaterialControlsState extends State<MaterialControls>
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: const Color(0x96000000),
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           currentSubtitle.first!.text.toString(),
@@ -253,7 +253,7 @@ class _MaterialControlsState extends State<MaterialControls>
   AnimatedOpacity _buildBottomBar(
     BuildContext context,
   ) {
-    final iconColor = Theme.of(context).textTheme.button!.color;
+    final iconColor = Theme.of(context).textTheme.labelLarge!.color;
 
     return AnimatedOpacity(
       opacity: notifier.hideStuff ? 0.0 : 1.0,
@@ -317,7 +317,7 @@ class _MaterialControlsState extends State<MaterialControls>
           controller.setVolume(_latestVolume ?? 0.5);
         } else {
           _latestVolume = controller.value.volume;
-          controller.setVolume(0.0);
+          controller.setVolume(0);
         }
       },
       child: AnimatedOpacity(
@@ -327,7 +327,7 @@ class _MaterialControlsState extends State<MaterialControls>
           child: Container(
             height: barHeight,
             padding: const EdgeInsets.only(
-              left: 6.0,
+              left: 6,
             ),
             child: Icon(
               _latestValue.volume > 0 ? Icons.volume_up : Icons.volume_off,
@@ -347,10 +347,10 @@ class _MaterialControlsState extends State<MaterialControls>
         duration: const Duration(milliseconds: 300),
         child: Container(
           height: barHeight + (chewieController.isFullScreen ? 15.0 : 0),
-          margin: const EdgeInsets.only(right: 12.0),
+          margin: const EdgeInsets.only(right: 12),
           padding: const EdgeInsets.only(
-            left: 8.0,
-            right: 8.0,
+            left: 8,
+            right: 8,
           ),
           child: Center(
             child: Icon(
@@ -366,7 +366,7 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   Widget _buildHitArea() {
-    final bool isFinished = _latestValue.position >= _latestValue.duration;
+    final isFinished = _latestValue.position >= _latestValue.duration;
 
     return GestureDetector(
       onTap: () {
@@ -412,7 +412,7 @@ class _MaterialControlsState extends State<MaterialControls>
     );
 
     if (chosenSpeed != null) {
-      controller.setPlaybackSpeed(chosenSpeed);
+      await controller.setPlaybackSpeed(chosenSpeed);
     }
 
     if (_latestValue.isPlaying) {
@@ -431,14 +431,14 @@ class _MaterialControlsState extends State<MaterialControls>
           TextSpan(
             text: '/ ${formatDuration(duration)}',
             style: TextStyle(
-              fontSize: 14.0,
+              fontSize: 14,
               color: Colors.white.withOpacity(.75),
               fontWeight: FontWeight.normal,
             ),
           )
         ],
         style: const TextStyle(
-          fontSize: 14.0,
+          fontSize: 14,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
@@ -457,8 +457,8 @@ class _MaterialControlsState extends State<MaterialControls>
         height: barHeight,
         color: Colors.transparent,
         padding: const EdgeInsets.only(
-          left: 12.0,
-          right: 12.0,
+          left: 12,
+          right: 12,
         ),
         child: Icon(
           _subtitleOn
@@ -512,9 +512,7 @@ class _MaterialControlsState extends State<MaterialControls>
       chewieController.toggleFullScreen();
       _showAfterExpandCollapseTimer =
           Timer(const Duration(milliseconds: 300), () {
-        setState(() {
-          _cancelAndRestartTimer();
-        });
+        setState(_cancelAndRestartTimer);
       });
     });
   }
@@ -574,7 +572,7 @@ class _MaterialControlsState extends State<MaterialControls>
             ChewieProgressColors(
               playedColor: Theme.of(context).colorScheme.secondary,
               handleColor: Theme.of(context).colorScheme.secondary,
-              bufferedColor: Theme.of(context).backgroundColor.withOpacity(0.5),
+              bufferedColor: Theme.of(context).colorScheme.background.withOpacity(0.5),
               backgroundColor: Theme.of(context).disabledColor.withOpacity(0.5),
             ),
       ),

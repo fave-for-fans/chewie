@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 
 class PlaybackSpeedDialog extends StatelessWidget {
   const PlaybackSpeedDialog({
-    Key? key,
+    super.key,
     required List<double> speeds,
     required double selected,
   })  : _speeds = speeds,
-        _selected = selected,
-        super(key: key);
+        _selected = selected;
 
   final List<double> _speeds;
   final double _selected;
 
   @override
   Widget build(BuildContext context) {
-    final Color selectedColor = Theme.of(context).primaryColor;
+    final selectedColor = Theme.of(context).primaryColor;
 
     return ListView.builder(
       shrinkWrap: true,
@@ -28,12 +27,12 @@ class PlaybackSpeedDialog extends StatelessWidget {
               if (_speed == _selected)
                 Icon(
                   Icons.check,
-                  size: 20.0,
+                  size: 20,
                   color: selectedColor,
                 )
               else
-                Container(width: 20.0),
-              const SizedBox(width: 16.0),
+                Container(width: 20),
+              const SizedBox(width: 16),
               Text(_speed.toString()),
             ],
           ),

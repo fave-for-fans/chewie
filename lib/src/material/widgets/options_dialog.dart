@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class OptionsDialog extends StatefulWidget {
   const OptionsDialog({
-    Key? key,
+    super.key,
     required this.options,
     this.cancelButtonText,
-  }) : super(key: key);
+  });
 
   final List<OptionItem> options;
   final String? cancelButtonText;
@@ -42,7 +42,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Divider(
-              thickness: 1.0,
+              thickness: 1,
             ),
           ),
           ListTile(

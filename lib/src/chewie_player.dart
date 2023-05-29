@@ -25,9 +25,9 @@ typedef ChewieRoutePageBuilder = Widget Function(
 /// make it easy to use!
 class Chewie extends StatefulWidget {
   const Chewie({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   /// The [ChewieController]
   final ChewieController controller;
@@ -158,7 +158,7 @@ class ChewieState extends State<Chewie> {
     onEnterFullScreen();
 
     if (!widget.controller.allowedScreenSleep) {
-      Wakelock.enable();
+      await Wakelock.enable();
     }
 
     await Navigator.of(
@@ -170,13 +170,13 @@ class ChewieState extends State<Chewie> {
 
     // The wakelock plugins checks whether it needs to perform an action internally,
     // so we do not need to check Wakelock.isEnabled.
-    Wakelock.disable();
+    await Wakelock.disable();
 
-    SystemChrome.setEnabledSystemUIMode(
+    await SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: widget.controller.systemOverlaysAfterFullScreen,
     );
-    SystemChrome.setPreferredOrientations(
+    await SystemChrome.setPreferredOrientations(
       widget.controller.deviceOrientationsAfterFullScreen,
     );
   }
@@ -604,10 +604,10 @@ class ChewieController extends ChangeNotifier {
 
 class ChewieControllerProvider extends InheritedWidget {
   const ChewieControllerProvider({
-    Key? key,
+    super.key,
     required this.controller,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final ChewieController controller;
 

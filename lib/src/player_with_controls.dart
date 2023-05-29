@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerWithControls extends StatelessWidget {
-  const PlayerWithControls({Key? key}) : super(key: key);
+  const PlayerWithControls({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ChewieController chewieController = ChewieController.of(context);
+    final chewieController = ChewieController.of(context);
 
     double _calculateAspectRatio(BuildContext context) {
       final size = MediaQuery.of(context).size;
@@ -61,7 +61,7 @@ class PlayerWithControls extends StatelessWidget {
                   duration: const Duration(
                     milliseconds: 250,
                   ),
-                  child: Container(
+                  child: DecoratedBox(
                     decoration: const BoxDecoration(color: Colors.black54),
                     child: Container(),
                   ),

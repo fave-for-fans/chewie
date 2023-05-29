@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class AdaptiveControls extends StatelessWidget {
   const AdaptiveControls({
-    Key? key,
+    super.key,
     this.playButtonIcon,
     this.pauseButtonIcon,
-  }) : super(key: key);
+  });
 
   final IconData? playButtonIcon;
   final IconData? pauseButtonIcon;
