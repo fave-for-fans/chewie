@@ -1,15 +1,17 @@
-include: package:very_good_analysis/analysis_options.3.0.1.yaml
+include: package:flutter_lints/flutter.yaml
 
 analyzer:
-  strong-mode:
-    implicit-dynamic: false
+  language:
+    strict-raw-types: true
   exclude:
     - lib/generated_plugin_registrant.dart
+  errors:
+    # allow self-reference to deprecated members (we do this because otherwise we have
+    # to annotate every member in every test, assert, etc, when we deprecate something)
+    deprecated_member_use_from_same_package: ignore
 
 linter:
   rules:
-    public_member_api_docs: false
-    sort_constructors_first: false
-    require_trailing_commas: true
-    constant_identifier_names: false
-    use_super_parameters: true
+    close_sinks: true
+    sort_constructors_first: true
+    sort_pub_dependencies: false

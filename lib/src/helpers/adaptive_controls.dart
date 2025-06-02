@@ -1,16 +1,10 @@
 import 'package:chewie/chewie.dart';
-import 'package:chewie/src/material/material_desktop_controls.dart';
 import 'package:flutter/material.dart';
 
 class AdaptiveControls extends StatelessWidget {
   const AdaptiveControls({
-    Key? key,
-    this.playButtonIcon,
-    this.pauseButtonIcon,
-  }) : super(key: key);
-
-  final IconData? playButtonIcon;
-  final IconData? pauseButtonIcon;
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +19,9 @@ class AdaptiveControls extends StatelessWidget {
         return const MaterialDesktopControls();
 
       case TargetPlatform.iOS:
-        return CupertinoControls(
-          playButtonIcon: playButtonIcon,
-          pauseButtonIcon: pauseButtonIcon,
-        );
-      default:
-        return MaterialControls(
-          playButtonIcon: playButtonIcon,
-          pauseButtonIcon: pauseButtonIcon,
+        return const CupertinoControls(
+          backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
+          iconColor: Color.fromARGB(255, 200, 200, 200),
         );
     }
   }
